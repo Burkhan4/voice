@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratoriya: Tovush Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #0b0f19;
+      color: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: #151e32;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      padding: 32px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 8px;
+      color: #38bdf8;
+    }
+
+    p.desc {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .display-screen {
+      background: #070a12;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .freq-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #06b6d4;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .freq-unit {
+      color: #64748b;
+      font-size: 1.1rem;
+      font-weight: normal;
+    }
+
+    .tabs {
+      display: flex;
+      background: #090d16;
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #1e293b;
+      color: #38bdf8;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      background: #090d16;
+      border: 1px solid #334155;
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input[type="number"]:focus {
+      border-color: #06b6d4;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .row .input-group {
+      flex: 1;
+    }
+
+    .btn-main {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(90deg, #06b6d4, #2563eb);
+      color: #fff;
+      margin-top: 10px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-main:hover {
+      opacity: 0.95;
+    }
+
+    .btn-stop {
+      background: #ef4444 !important;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .status-text {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Tovush Laboratoriyasi</h1>
+  <p class="desc">Akademiya Robbit | Eshitish diapazoni testi</p>
+
+  <div class="display-screen">
+    <div class="freq-number" id="displayFreq">16000 <span class="freq-unit">Hz</span></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('single')">Aniq chastota</button>
+    <button class="tab-btn" onclick="switchTab('sweep')">Ko‘tarilish rejimi (Sweep)</button>
+  </div>
+
+  <!-- 1-rejim: Bitta chastota -->
+  <div id="singleTab" class="tab-content active">
+    <div class="input-group">
+      <label>Chastota qiymati (Hz):</label>
+      <input type="number" id="singleFreqInput" value="16000" min="20" max="22000" step="500">
+    </div>
+  </div>
+
+  <!-- 2-rejim: Oraliq bo‘yicha asta-sekin ko‘tarilish -->
+  <div id="sweepTab" class="tab-content">
+    <div class="row">
+      <div class="input-group">
+        <label>Boshlang‘ich (Hz):</label>
+        <input type="number" id="sweepStartInput" value="14000" min="20" max="22000">
+      </div>
+      <div class="input-group">
+        <label>Tugash (Hz):</label>
+        <input type="number" id="sweepEndInput" value="20000" min="20" max="22000">
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Ko‘tarilish vaqti (soniyada):</label>
+      <input type="number" id="sweepDurationInput" value="10" min="1" max="60">
+    </div>
+  </div>
+
+  <button class="btn-main" id="actionBtn" onclick="toggleSound()">Tovushni yoqish (Play)</button>
+  <div class="status-text" id="statusText">Holat: To‘xtatilgan</div>
+</div>
+
+<script>
+  let currentMode = 'single';
+  let isPlaying = false;
+  let audioCtx = null;
+  let oscillator = null;
+  let animId = null;
+  let sweepStartTime = 0;
+  let sweepDuration = 10;
+  let startFreq = 14000;
+  let endFreq = 20000;
+
+  const displayFreq = document.getElementById('displayFreq');
+  const actionBtn = document.getElementById('actionBtn');
+  const statusText = document.getElementById('statusText');
+
+  function switchTab(mode) {
+    if (isPlaying) stopSound();
+    currentMode = mode;
+    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+      btn.classList.toggle('active', (mode === 'single' && idx === 0) || (mode === 'sweep' && idx === 1));
+    });
+    document.getElementById('singleTab').classList.toggle('active', mode === 'single');
+    document.getElementById('sweepTab').classList.toggle('active', mode === 'sweep');
+
+    if (mode === 'single') {
+      displayFreq.innerHTML = `${document.getElementById('singleFreqInput').value} <span class="freq-unit">Hz</span>`;
+    } else {
+      displayFreq.innerHTML = `${document.getElementById('sweepStartInput').value} <span class="freq-unit">Hz</span>`;
+    }
+  }
+
+  document.getElementById('singleFreqInput').addEventListener('input', (e) => {
+    if (!isPlaying) {
+      displayFreq.innerHTML = `${e.target.value} <span class="freq-unit">Hz</span>`;
+    } else if (oscillator && currentMode === 'single') {
+      oscillator.frequency.setValueAtTime(e.target.value, audioCtx.currentTime);
+      displayFreq.innerHTML = `${e.target.value} <span class="freq-unit">Hz</span>`;
+    }
+  });
+
+  function toggleSound() {
+    if (isPlaying) {
+      stopSound();
+    } else {
+      startSound();
+    }
+  }
+
+  function startSound() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    oscillator.type = 'sine';
+    // Xavfsiz eshitish uchun ovoz balandligini me'yorda ushlaymiz (8%)
+    gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+    const now = audioCtx.currentTime;
+
+    if (currentMode === 'single') {
+      const val = parseFloat(document.getElementById('singleFreqInput').value) || 16000;
+      oscillator.frequency.setValueAtTime(val, now);
+      displayFreq.innerHTML = `${Math.round(val)} <span class="freq-unit">Hz</span>`;
+      statusText.innerText = "Holat: Bir xil chastota yangramoqda";
+    } else {
+      startFreq = parseFloat(document.getElementById('sweepStartInput').value) || 14000;
+      endFreq = parseFloat(document.getElementById('sweepEndInput').value) || 20000;
+      sweepDuration = parseFloat(document.getElementById('sweepDurationInput').value) || 10;
+
+      oscillator.frequency.setValueAtTime(startFreq, now);
+      // Chiziqli ravishda chastotani ko'tarib borish
+      oscillator.frequency.linearRampToValueAtTime(endFreq, now + sweepDuration);
+
+      sweepStartTime = performance.now();
+      updateSweepDisplay();
+      statusText.innerText = `Holat: ${sweepDuration} soniya ichida ko‘tarilmoqda...`;
+
+      // Vaqt tugagach o'zi to'xtaydi
+      setTimeout(() => {
+        if (isPlaying && currentMode === 'sweep') stopSound();
+      }, sweepDuration * 1000);
+    }
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+
+    isPlaying = true;
+    actionBtn.innerText = "To‘xtatish (Stop)";
+    actionBtn.classList.add('btn-stop');
+  }
+
+  function updateSweepDisplay() {
+    if (!isPlaying || currentMode !== 'sweep') return;
+
+    const elapsed = (performance.now() - sweepStartTime) / 1000;
+    const progress = Math.min(elapsed / sweepDuration, 1);
+    const currentVal = Math.round(startFreq + (endFreq - startFreq) * progress);
+
+    displayFreq.innerHTML = `${currentVal} <span class="freq-unit">Hz</span>`;
+
+    if (progress < 1) {
+      animId = requestAnimationFrame(updateSweepDisplay);
+    }
+  }
+
+  function stopSound() {
+    if (oscillator) {
+      oscillator.stop();
+      oscillator.disconnect();
+      oscillator = null;
+    }
+    cancelAnimationFrame(animId);
+    isPlaying = false;
+    actionBtn.innerText = "Tovushni yoqish (Play)";
+    actionBtn.classList.remove('btn-stop');
+    statusText.innerText = "Holat: To‘xtatilgan";
+  }
+</script>
+</body>
+</html>

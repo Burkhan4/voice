@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboratoriya: Tovush Generator</title>
+  <title>Laboratoriya: Tovush Generator va To‘lqinlar</title>
   <style>
     * {
       box-sizing: border-box;
@@ -19,44 +19,44 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 24px;
     }
 
     .container {
       background: #151e32;
       border: 1px solid #1e293b;
       border-radius: 20px;
-      padding: 32px;
+      padding: 30px;
       width: 100%;
-      max-width: 520px;
+      max-width: 540px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     }
 
     h1 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #38bdf8;
     }
 
     p.desc {
       text-align: center;
       color: #94a3b8;
-      font-size: 0.95rem;
-      margin-bottom: 24px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
     }
 
     .display-screen {
       background: #070a12;
       border: 1px solid #334155;
       border-radius: 12px;
-      padding: 20px;
+      padding: 18px;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .freq-number {
-      font-size: 2.8rem;
+      font-size: 2.6rem;
       font-weight: 800;
       color: #06b6d4;
       font-variant-numeric: tabular-nums;
@@ -73,18 +73,19 @@
       background: #090d16;
       border-radius: 10px;
       padding: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 10px;
+      padding: 9px;
       border: none;
       background: transparent;
       color: #94a3b8;
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 0.9rem;
       transition: 0.2s;
     }
 
@@ -94,7 +95,7 @@
     }
 
     .input-group {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     label {
@@ -109,9 +110,9 @@
       background: #090d16;
       border: 1px solid #334155;
       color: #fff;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border-radius: 8px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       outline: none;
     }
 
@@ -130,15 +131,14 @@
 
     .btn-main {
       width: 100%;
-      padding: 16px;
+      padding: 14px;
       border: none;
       border-radius: 10px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
       background: linear-gradient(90deg, #06b6d4, #2563eb);
       color: #fff;
-      margin-top: 10px;
       transition: opacity 0.2s;
     }
 
@@ -160,9 +160,65 @@
 
     .status-text {
       text-align: center;
-      margin-top: 14px;
+      margin-top: 10px;
+      margin-bottom: 24px;
       font-size: 0.85rem;
       color: #64748b;
+    }
+
+    /* Vizualizatsiya bloki */
+    .wave-section {
+      border-top: 1px solid #1e293b;
+      padding-top: 20px;
+    }
+
+    .wave-title {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .canvas-card {
+      background: #080d18;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 120px;
+      background: #080d18;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .wave-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .btn-wave {
+      background: #38bdf8;
+      color: #080d18;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn-wave:hover {
+      opacity: 0.9;
+    }
+
+    .btn-wave:active {
+      transform: scale(0.98);
     }
   </style>
 </head>
@@ -170,18 +226,19 @@
 
 <div class="container">
   <h1>Tovush Laboratoriyasi</h1>
-  <p class="desc">Akademiya Robbit | Eshitish diapazoni testi</p>
+  <p class="desc">Akademiya Robbit | Chastota va To‘lqinlar</p>
 
+  <!-- Chastota ekrani -->
   <div class="display-screen">
     <div class="freq-number" id="displayFreq">16000 <span class="freq-unit">Hz</span></div>
   </div>
 
+  <!-- Rejimlar -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('single')">Aniq chastota</button>
     <button class="tab-btn" onclick="switchTab('sweep')">Ko‘tarilish rejimi (Sweep)</button>
   </div>
 
-  <!-- 1-rejim: Bitta chastota -->
   <div id="singleTab" class="tab-content active">
     <div class="input-group">
       <label>Chastota qiymati (Hz):</label>
@@ -189,7 +246,6 @@
     </div>
   </div>
 
-  <!-- 2-rejim: Oraliq bo‘yicha asta-sekin ko‘tarilish -->
   <div id="sweepTab" class="tab-content">
     <div class="row">
       <div class="input-group">
@@ -209,9 +265,22 @@
 
   <button class="btn-main" id="actionBtn" onclick="toggleSound()">Tovushni yoqish (Play)</button>
   <div class="status-text" id="statusText">Holat: To‘xtatilgan</div>
+
+  <!-- Pastki to'lqin vizualizatsiyasi -->
+  <div class="wave-section">
+    <div class="wave-title">Tovush to‘lqini shakli (Ostsillograf)</div>
+    <div class="canvas-card">
+      <canvas id="waveCanvas"></canvas>
+    </div>
+    <div class="wave-controls">
+      <button class="btn-wave" onclick="setWaveType('sine')">Toza tovush (Sinus)</button>
+      <button class="btn-wave" onclick="setWaveType('noise')">Shovqin (Tartibsiz to‘lqin)</button>
+    </div>
+  </div>
 </div>
 
 <script>
+  // Tovush generatori mantig'i
   let currentMode = 'single';
   let isPlaying = false;
   let audioCtx = null;
@@ -252,11 +321,8 @@
   });
 
   function toggleSound() {
-    if (isPlaying) {
-      stopSound();
-    } else {
-      startSound();
-    }
+    if (isPlaying) stopSound();
+    else startSound();
   }
 
   function startSound() {
@@ -267,7 +333,6 @@
     const gainNode = audioCtx.createGain();
 
     oscillator.type = 'sine';
-    // Xavfsiz eshitish uchun ovoz balandligini me'yorda ushlaymiz (8%)
     gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
 
     const now = audioCtx.currentTime;
@@ -283,14 +348,12 @@
       sweepDuration = parseFloat(document.getElementById('sweepDurationInput').value) || 10;
 
       oscillator.frequency.setValueAtTime(startFreq, now);
-      // Chiziqli ravishda chastotani ko'tarib borish
       oscillator.frequency.linearRampToValueAtTime(endFreq, now + sweepDuration);
 
       sweepStartTime = performance.now();
       updateSweepDisplay();
       statusText.innerText = `Holat: ${sweepDuration} soniya ichida ko‘tarilmoqda...`;
 
-      // Vaqt tugagach o'zi to'xtaydi
       setTimeout(() => {
         if (isPlaying && currentMode === 'sweep') stopSound();
       }, sweepDuration * 1000);
@@ -331,6 +394,48 @@
     actionBtn.classList.remove('btn-stop');
     statusText.innerText = "Holat: To‘xtatilgan";
   }
+
+  // To'lqinlar animatsiyasi (Canvas)
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+  let waveType = 'sine';
+  let wavePhase = 0;
+
+  function resizeCanvas() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = 120;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function setWaveType(type) {
+    waveType = type;
+  }
+
+  function drawWave() {
+    ctx.fillStyle = '#080d18';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#38bdf8';
+
+    const midY = canvas.height / 2;
+    for (let x = 0; x < canvas.width; x++) {
+      let y = midY;
+      if (waveType === 'sine') {
+        y += Math.sin((x * 0.035) + wavePhase) * 32;
+      } else {
+        y += (Math.sin((x * 0.03) + wavePhase) * 18) + ((Math.random() - 0.5) * 26);
+      }
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    wavePhase += 0.08;
+    requestAnimationFrame(drawWave);
+  }
+  drawWave();
 </script>
+
 </body>
 </html>

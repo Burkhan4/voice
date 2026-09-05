@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboratoriya: Tovush Generator va To‘lqinlar</title>
+  <title>Tovush Laboratoriyasi | Akademiya Robbit</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,106 +13,172 @@
     }
 
     body {
-      background: #0b0f19;
+      background: #070b14;
       color: #f1f5f9;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 24px;
+      padding: 32px 24px;
     }
 
+    /* Kengaytirilgan asosiy konteyner */
     .container {
-      background: #151e32;
+      background: #111a2e;
       border: 1px solid #1e293b;
-      border-radius: 20px;
-      padding: 30px;
+      border-radius: 24px;
+      padding: 36px 48px;
       width: 100%;
-      max-width: 540px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      max-width: 1100px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
     }
 
     h1 {
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 6px;
+      font-size: 2rem;
       color: #38bdf8;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
     }
 
     p.desc {
-      text-align: center;
       color: #94a3b8;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
+      font-size: 1.05rem;
     }
 
-    .display-screen {
-      background: #070a12;
-      border: 1px solid #334155;
+    /* Asosiy 3 ta sahifa menyusi */
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+      background: #080d1a;
+      border: 1px solid #1e293b;
+      padding: 8px;
+      border-radius: 16px;
+      margin-bottom: 28px;
+    }
+
+    .nav-tab-btn {
+      flex: 1;
+      padding: 14px 16px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 1.05rem;
+      font-weight: 700;
       border-radius: 12px;
-      padding: 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
       text-align: center;
-      margin-bottom: 20px;
+    }
+
+    .nav-tab-btn:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nav-tab-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Sahifalar */
+    .page-view {
+      display: none;
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 1-Sahifa: Gerts ekrani */
+    .display-screen {
+      background: #060a14;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      margin-bottom: 24px;
     }
 
     .freq-number {
-      font-size: 2.6rem;
+      font-size: 4rem;
       font-weight: 800;
       color: #06b6d4;
       font-variant-numeric: tabular-nums;
+      line-height: 1;
     }
 
     .freq-unit {
       color: #64748b;
-      font-size: 1.1rem;
-      font-weight: normal;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-left: 8px;
     }
 
-    .tabs {
+    .sub-tabs {
       display: flex;
-      background: #090d16;
-      border-radius: 10px;
-      padding: 4px;
-      margin-bottom: 16px;
+      background: #080d1a;
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 20px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .tab-btn {
+    .sub-tab-btn {
       flex: 1;
-      padding: 9px;
+      padding: 10px;
       border: none;
       background: transparent;
       color: #94a3b8;
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       transition: 0.2s;
     }
 
-    .tab-btn.active {
+    .sub-tab-btn.active {
       background: #1e293b;
       color: #38bdf8;
     }
 
+    .generator-controls {
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
     .input-group {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     label {
       display: block;
       color: #cbd5e1;
-      font-size: 0.85rem;
-      margin-bottom: 6px;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
     }
 
     input[type="number"] {
       width: 100%;
-      background: #090d16;
+      background: #060a14;
       border: 1px solid #334155;
       color: #fff;
-      padding: 11px 14px;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 1.1rem;
       outline: none;
     }
 
@@ -122,7 +188,7 @@
 
     .row {
       display: flex;
-      gap: 12px;
+      gap: 16px;
     }
 
     .row .input-group {
@@ -131,10 +197,10 @@
 
     .btn-main {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       border: none;
-      border-radius: 10px;
-      font-size: 1rem;
+      border-radius: 12px;
+      font-size: 1.15rem;
       font-weight: 700;
       cursor: pointer;
       background: linear-gradient(90deg, #06b6d4, #2563eb);
@@ -150,140 +216,219 @@
       background: #ef4444 !important;
     }
 
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
     .status-text {
       text-align: center;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      font-size: 0.85rem;
+      margin-top: 14px;
+      font-size: 0.95rem;
       color: #64748b;
     }
 
-    /* Vizualizatsiya bloki */
-    .wave-section {
-      border-top: 1px solid #1e293b;
-      padding-top: 20px;
-    }
-
-    .wave-title {
-      font-size: 0.95rem;
-      color: #94a3b8;
-      margin-bottom: 12px;
+    /* 2 & 3-Sahifalar: Katta vizual maydonlar */
+    .page-desc {
       text-align: center;
+      font-size: 1.05rem;
+      color: #94a3b8;
+      margin-bottom: 20px;
     }
 
-    .canvas-card {
-      background: #080d18;
+    .card-canvas {
+      background: #060a14;
       border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 12px;
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      margin-bottom: 24px;
     }
 
     canvas {
-      width: 100%;
-      height: 120px;
-      background: #080d18;
-      border-radius: 8px;
       display: block;
+      width: 100%;
+      border-radius: 10px;
+      background: #060a14;
     }
 
-    .wave-controls {
+    #waveCanvas {
+      height: 260px;
+    }
+
+    #spectroCanvas {
+      height: 280px;
+    }
+
+    .wave-actions {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-top: 14px;
+      gap: 16px;
     }
 
     .btn-wave {
       background: #38bdf8;
       color: #080d18;
       border: none;
-      padding: 9px 18px;
-      border-radius: 8px;
-      font-size: 0.9rem;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
+      transition: all 0.2s;
     }
 
     .btn-wave:hover {
       opacity: 0.9;
+      transform: translateY(-1px);
     }
 
-    .btn-wave:active {
-      transform: scale(0.98);
+    .axis-label {
+      position: absolute;
+      right: 24px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+      font-weight: 500;
+    }
+
+    .axis-top { top: 24px; }
+    .axis-bottom { bottom: 24px; }
+
+    .mic-btn-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .mic-btn {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid #06b6d4;
+      background: rgba(6, 182, 212, 0.12);
+      color: #38bdf8;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mic-btn:hover {
+      background: rgba(6, 182, 212, 0.22);
+    }
+
+    .mic-btn.active {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Tovush Laboratoriyasi</h1>
-  <p class="desc">Akademiya Robbit | Chastota va To‘lqinlar</p>
+  <header>
+    <h1>Tovush Laboratoriyasi</h1>
+    <p class="desc">Akademiya Robbit | Akustika va To‘lqinlar</p>
+  </header>
 
-  <!-- Chastota ekrani -->
-  <div class="display-screen">
-    <div class="freq-number" id="displayFreq">16000 <span class="freq-unit">Hz</span></div>
-  </div>
+  <!-- 3 ta sahifa navigatsiyasi -->
+  <nav class="nav-tabs">
+    <button class="nav-tab-btn active" onclick="switchPage('page-freq')">1. Chastota (Gerts)</button>
+    <button class="nav-tab-btn" onclick="switchPage('page-wave')">2. To‘lqin Shakli</button>
+    <button class="nav-tab-btn" onclick="switchPage('page-spectro')">3. Spektrogramma</button>
+  </nav>
 
-  <!-- Rejimlar -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('single')">Aniq chastota</button>
-    <button class="tab-btn" onclick="switchTab('sweep')">Ko‘tarilish rejimi (Sweep)</button>
-  </div>
-
-  <div id="singleTab" class="tab-content active">
-    <div class="input-group">
-      <label>Chastota qiymati (Hz):</label>
-      <input type="number" id="singleFreqInput" value="16000" min="20" max="22000" step="500">
+  <!-- 1-SAHIFA: CHASTOTA GENERATORI -->
+  <section id="page-freq" class="page-view active">
+    <div class="display-screen">
+      <div class="freq-number" id="displayFreq">16000 <span class="freq-unit">Hz</span></div>
     </div>
-  </div>
 
-  <div id="sweepTab" class="tab-content">
-    <div class="row">
-      <div class="input-group">
-        <label>Boshlang‘ich (Hz):</label>
-        <input type="number" id="sweepStartInput" value="14000" min="20" max="22000">
+    <div class="generator-controls">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab('single')">Aniq chastota</button>
+        <button class="sub-tab-btn" onclick="switchSubTab('sweep')">Ko‘tarilish (Sweep)</button>
       </div>
-      <div class="input-group">
-        <label>Tugash (Hz):</label>
-        <input type="number" id="sweepEndInput" value="20000" min="20" max="22000">
+
+      <div id="singleSubTab">
+        <div class="input-group">
+          <label>Chastota qiymati (Hz):</label>
+          <input type="number" id="singleFreqInput" value="16000" min="20" max="22000" step="500">
+        </div>
       </div>
-    </div>
-    <div class="input-group">
-      <label>Ko‘tarilish vaqti (soniyada):</label>
-      <input type="number" id="sweepDurationInput" value="10" min="1" max="60">
-    </div>
-  </div>
 
-  <button class="btn-main" id="actionBtn" onclick="toggleSound()">Tovushni yoqish (Play)</button>
-  <div class="status-text" id="statusText">Holat: To‘xtatilgan</div>
+      <div id="sweepSubTab" style="display: none;">
+        <div class="row">
+          <div class="input-group">
+            <label>Boshlang‘ich (Hz):</label>
+            <input type="number" id="sweepStartInput" value="14000" min="20" max="22000">
+          </div>
+          <div class="input-group">
+            <label>Tugash (Hz):</label>
+            <input type="number" id="sweepEndInput" value="20000" min="20" max="22000">
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Ko‘tarilish vaqti (soniyada):</label>
+          <input type="number" id="sweepDurationInput" value="10" min="1" max="60">
+        </div>
+      </div>
 
-  <!-- Pastki to'lqin vizualizatsiyasi -->
-  <div class="wave-section">
-    <div class="wave-title">Tovush to‘lqini shakli (Ostsillograf)</div>
-    <div class="canvas-card">
+      <button class="btn-main" id="actionBtn" onclick="toggleSound()">Tovushni yoqish (Play)</button>
+      <div class="status-text" id="statusText">Holat: To‘xtatilgan</div>
+    </div>
+  </section>
+
+  <!-- 2-SAHIFA: TOVUSH TOZALIGI VA OSTSILLOGRAF -->
+  <section id="page-wave" class="page-view">
+    <p class="page-desc">Toza musiqiy ton (sinusoida) va tartibsiz shovqin to‘lqini o‘rtasidagi farq:</p>
+    <div class="card-canvas">
       <canvas id="waveCanvas"></canvas>
     </div>
-    <div class="wave-controls">
+    <div class="wave-actions">
       <button class="btn-wave" onclick="setWaveType('sine')">Toza tovush (Sinus)</button>
-      <button class="btn-wave" onclick="setWaveType('noise')">Shovqin (Tartibsiz to‘lqin)</button>
+      <button class="btn-wave" onclick="setWaveType('noise')">Shovqin (Tartibsiz)</button>
     </div>
-  </div>
+  </section>
+
+  <!-- 3-SAHIFA: JONLI SPEKTROGRAMMA -->
+  <section id="page-spectro" class="page-view">
+    <p class="page-desc">Mikrofon orqali ovozingizning chastota qatlamlarini (akustik barmoq izini) chizing:</p>
+    <div class="card-canvas">
+      <canvas id="spectroCanvas"></canvas>
+      <div class="axis-label axis-top">Yuqori chastota (Ingichka) &uarr;</div>
+      <div class="axis-label axis-bottom">Past chastota (Bas) &darr;</div>
+    </div>
+    <div class="mic-btn-container">
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()">Mikrofonni yoqish va chizishni boshlash</button>
+    </div>
+  </section>
 </div>
 
 <script>
-  // Tovush generatori mantig'i
-  let currentMode = 'single';
-  let isPlaying = false;
+  function switchPage(pageId) {
+    document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById(pageId).classList.add('active');
+
+    if (pageId === 'page-freq') document.querySelectorAll('.nav-tab-btn')[0].classList.add('active');
+    if (pageId === 'page-wave') {
+      document.querySelectorAll('.nav-tab-btn')[1].classList.add('active');
+      resizeWaveCanvas();
+    }
+    if (pageId === 'page-spectro') {
+      document.querySelectorAll('.nav-tab-btn')[2].classList.add('active');
+      resizeSpectroCanvas();
+    }
+  }
+
   let audioCtx = null;
+  function getAudioContext() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  // Generator Logikasi
+  let currentSubMode = 'single';
+  let isPlaying = false;
   let oscillator = null;
   let animId = null;
   let sweepStartTime = 0;
@@ -295,14 +440,14 @@
   const actionBtn = document.getElementById('actionBtn');
   const statusText = document.getElementById('statusText');
 
-  function switchTab(mode) {
+  function switchSubTab(mode) {
     if (isPlaying) stopSound();
-    currentMode = mode;
-    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+    currentSubMode = mode;
+    document.querySelectorAll('.sub-tab-btn').forEach((btn, idx) => {
       btn.classList.toggle('active', (mode === 'single' && idx === 0) || (mode === 'sweep' && idx === 1));
     });
-    document.getElementById('singleTab').classList.toggle('active', mode === 'single');
-    document.getElementById('sweepTab').classList.toggle('active', mode === 'sweep');
+    document.getElementById('singleSubTab').style.display = mode === 'single' ? 'block' : 'none';
+    document.getElementById('sweepSubTab').style.display = mode === 'sweep' ? 'block' : 'none';
 
     if (mode === 'single') {
       displayFreq.innerHTML = `${document.getElementById('singleFreqInput').value} <span class="freq-unit">Hz</span>`;
@@ -314,7 +459,7 @@
   document.getElementById('singleFreqInput').addEventListener('input', (e) => {
     if (!isPlaying) {
       displayFreq.innerHTML = `${e.target.value} <span class="freq-unit">Hz</span>`;
-    } else if (oscillator && currentMode === 'single') {
+    } else if (oscillator && currentSubMode === 'single') {
       oscillator.frequency.setValueAtTime(e.target.value, audioCtx.currentTime);
       displayFreq.innerHTML = `${e.target.value} <span class="freq-unit">Hz</span>`;
     }
@@ -326,18 +471,16 @@
   }
 
   function startSound() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-
-    oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
+    const ctx = getAudioContext();
+    oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
 
     oscillator.type = 'sine';
-    gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
 
-    const now = audioCtx.currentTime;
+    const now = ctx.currentTime;
 
-    if (currentMode === 'single') {
+    if (currentSubMode === 'single') {
       const val = parseFloat(document.getElementById('singleFreqInput').value) || 16000;
       oscillator.frequency.setValueAtTime(val, now);
       displayFreq.innerHTML = `${Math.round(val)} <span class="freq-unit">Hz</span>`;
@@ -352,15 +495,15 @@
 
       sweepStartTime = performance.now();
       updateSweepDisplay();
-      statusText.innerText = `Holat: ${sweepDuration} soniya ichida ko‘tarilmoqda...`;
+      statusText.innerText = `Holat: ${sweepDuration} soniyada ko‘tarilmoqda...`;
 
       setTimeout(() => {
-        if (isPlaying && currentMode === 'sweep') stopSound();
+        if (isPlaying && currentSubMode === 'sweep') stopSound();
       }, sweepDuration * 1000);
     }
 
     oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+    gainNode.connect(ctx.destination);
     oscillator.start();
 
     isPlaying = true;
@@ -369,17 +512,12 @@
   }
 
   function updateSweepDisplay() {
-    if (!isPlaying || currentMode !== 'sweep') return;
-
+    if (!isPlaying || currentSubMode !== 'sweep') return;
     const elapsed = (performance.now() - sweepStartTime) / 1000;
     const progress = Math.min(elapsed / sweepDuration, 1);
     const currentVal = Math.round(startFreq + (endFreq - startFreq) * progress);
-
     displayFreq.innerHTML = `${currentVal} <span class="freq-unit">Hz</span>`;
-
-    if (progress < 1) {
-      animId = requestAnimationFrame(updateSweepDisplay);
-    }
+    if (progress < 1) animId = requestAnimationFrame(updateSweepDisplay);
   }
 
   function stopSound() {
@@ -395,46 +533,132 @@
     statusText.innerText = "Holat: To‘xtatilgan";
   }
 
-  // To'lqinlar animatsiyasi (Canvas)
-  const canvas = document.getElementById('waveCanvas');
-  const ctx = canvas.getContext('2d');
+  // Wave Canvas
+  const waveCanvas = document.getElementById('waveCanvas');
+  const waveCtx = waveCanvas.getContext('2d');
   let waveType = 'sine';
   let wavePhase = 0;
 
-  function resizeCanvas() {
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = 120;
+  function resizeWaveCanvas() {
+    if (!waveCanvas.parentElement) return;
+    waveCanvas.width = waveCanvas.parentElement.clientWidth - 32;
+    waveCanvas.height = 260;
   }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+  window.addEventListener('resize', resizeWaveCanvas);
+  resizeWaveCanvas();
 
   function setWaveType(type) {
     waveType = type;
   }
 
   function drawWave() {
-    ctx.fillStyle = '#080d18';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#38bdf8';
+    waveCtx.fillStyle = '#060a14';
+    waveCtx.fillRect(0, 0, waveCanvas.width, waveCanvas.height);
+    waveCtx.beginPath();
+    waveCtx.lineWidth = 4;
+    waveCtx.strokeStyle = '#38bdf8';
 
-    const midY = canvas.height / 2;
-    for (let x = 0; x < canvas.width; x++) {
+    const midY = waveCanvas.height / 2;
+    for (let x = 0; x < waveCanvas.width; x++) {
       let y = midY;
       if (waveType === 'sine') {
-        y += Math.sin((x * 0.035) + wavePhase) * 32;
+        y += Math.sin((x * 0.02) + wavePhase) * 60;
       } else {
-        y += (Math.sin((x * 0.03) + wavePhase) * 18) + ((Math.random() - 0.5) * 26);
+        y += (Math.sin((x * 0.02) + wavePhase) * 35) + ((Math.random() - 0.5) * 45);
       }
-      if (x === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (x === 0) waveCtx.moveTo(x, y);
+      else waveCtx.lineTo(x, y);
     }
-    ctx.stroke();
-    wavePhase += 0.08;
+    waveCtx.stroke();
+    wavePhase += 0.07;
     requestAnimationFrame(drawWave);
   }
   drawWave();
+
+  // Spectrogram Canvas
+  let micStream = null;
+  let analyser = null;
+  let isMicActive = false;
+  let spectroAnimId = null;
+
+  const spectroCanvas = document.getElementById('spectroCanvas');
+  const spectroCtx = spectroCanvas.getContext('2d');
+  const micBtn = document.getElementById('micBtn');
+
+  function resizeSpectroCanvas() {
+    if (!spectroCanvas.parentElement) return;
+    spectroCanvas.width = spectroCanvas.parentElement.clientWidth - 32;
+    spectroCanvas.height = 280;
+    spectroCtx.fillStyle = '#060a14';
+    spectroCtx.fillRect(0, 0, spectroCanvas.width, spectroCanvas.height);
+  }
+  window.addEventListener('resize', resizeSpectroCanvas);
+  resizeSpectroCanvas();
+
+  async function toggleMic() {
+    if (isMicActive) stopMic();
+    else await startMic();
+  }
+
+  async function startMic() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      const ctx = getAudioContext();
+      micStream = stream;
+      const source = ctx.createMediaStreamSource(stream);
+      analyser = ctx.createAnalyser();
+      analyser.fftSize = 512;
+      analyser.smoothingTimeConstant = 0.2;
+
+      source.connect(analyser);
+      isMicActive = true;
+      micBtn.innerText = "Mikrofonni o‘chirish";
+      micBtn.classList.add('active');
+      drawSpectrogram();
+    } catch (err) {
+      alert("Mikrofonga ulanishda xatolik: " + err.message);
+    }
+  }
+
+  function stopMic() {
+    if (micStream) {
+      micStream.getTracks().forEach(t => t.stop());
+      micStream = null;
+    }
+    cancelAnimationFrame(spectroAnimId);
+    isMicActive = false;
+    micBtn.innerText = "Mikrofonni yoqish va chizishni boshlash";
+    micBtn.classList.remove('active');
+  }
+
+  function drawSpectrogram() {
+    if (!isMicActive) return;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(dataArray);
+
+    const imgData = spectroCtx.getImageData(3, 0, spectroCanvas.width - 3, spectroCanvas.height);
+    spectroCtx.putImageData(imgData, 0, 0);
+
+    const usefulBins = Math.floor(bufferLength * 0.7);
+
+    for (let i = 0; i < usefulBins; i++) {
+      const value = dataArray[i];
+      const y = spectroCanvas.height - Math.floor((i / usefulBins) * spectroCanvas.height);
+
+      if (value > 30) {
+        const hue = 180 + (value / 255) * 140;
+        const lightness = (value / 255) * 60;
+        spectroCtx.fillStyle = `hsl(${hue}, 100%, ${lightness}%)`;
+      } else {
+        spectroCtx.fillStyle = '#060a14';
+      }
+      spectroCtx.fillRect(spectroCanvas.width - 3, y, 3, 3);
+    }
+
+    spectroAnimId = requestAnimationFrame(drawSpectrogram);
+  }
 </script>
 
 </body>
